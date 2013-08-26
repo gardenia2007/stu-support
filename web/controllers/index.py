@@ -4,7 +4,7 @@ import base64
 from config import setting
 
 render = setting.render
-       
+
 class Index:
     def GET(self):
         return render.index("Hello World!")
@@ -18,3 +18,4 @@ class Login:
         return render.login()
     def POST(self):
         pass
+

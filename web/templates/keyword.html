@@ -1,10 +1,10 @@
-$def with (content)
+$def with ()
   
 $:render.common.header()
 
       <div class="container">
         <div class="page-header" style="">
-          <h1>学生心情指数<small> 10级</small></h1>
+          <h1>关键词关注度 <small>10级</small></h1>
         </div>
 
         <!-- 选择条件 -->
@@ -105,19 +105,22 @@ $ data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某',
           );
 
         $$('#plot').highcharts({
+
+            colors: [ "#55BF3B", "#aaeeee", "#DDDF0D", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
+                      "#DF5353", "#7798BF",],
             chart: {
-                type: 'column'
+                type: 'bar'
             },
             title: {
                 text: ''
             },
             xAxis: {
-                categories: ['Level1', 'Level2', 'Level3', 'Level4', 'Level5']
+                categories: ['薄', '微博', '谣言', '大V', '钓鱼岛']
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: '指数'
+                    text: ''
                 },
                 stackLabels: {
                     enabled: true,
@@ -141,8 +144,7 @@ $ data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某',
             tooltip: {
                 formatter: function() {
                     return '<b>'+ this.x +'</b><br/>'+
-                        this.series.name +': '+ this.y +'<br/>'+
-                        'Total: '+ this.point.stackTotal;
+                        this.series.name +': '+ this.y +'<br/>';
                 }
             },
             plotOptions: {
@@ -155,17 +157,9 @@ $ data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某',
                 }
             },
             series: [{
-                name: '班级',
+                name: '人数',
                 data: [5, 3, 4, 7, 2]
-            }
-            , {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1]
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
-            }
-            ]
+            }]
         });
     });
     
