@@ -4,6 +4,17 @@ from config import setting
 
 render = setting.render
 
+
+class User:
+	"""check if is login"""
+	def __init__(self):
+		self.is_login = True
+		if web.ctx.session.is_login == False:
+			web.seeother('/login')
+			self.is_login = False
+
+
+
 class Index:
 	def GET(self):
 		return web.seeother('/status/value')
@@ -11,19 +22,23 @@ class Index:
 		pass
 
 
-class Value:
+class Value(User):
+	def __init__(self):
+		User.__init__(self)
 	def GET(self):
 		data = {'url':'value'}
 		v = random.randint(0, 30)
-		return render.status.status(data, web.input(start='0', end='0'))
+		return render.status.status(web.ctx.session, data, web.input(start='0', end='0'))
 	def POST(self):
 		pass
 
 
-class Class:
+class Class(User):
+	def __init__(self):
+		User.__init__(self)
 	def GET(self):
 		data = {'url':'class'}
-		return render.status.status(data, web.input(start='0', end='0'))
+		return render.status.status(web.ctx.session, data, web.input(start='0', end='0'))
 	def POST(self):
 		pass
 

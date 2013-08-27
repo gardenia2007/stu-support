@@ -5,6 +5,7 @@ urls = (
     "/",      					pre_fix + "index.Index",
     "/index", 					pre_fix + "index.Index",
     "/login", 					pre_fix + "index.Login",
+    "/logout", 					pre_fix + "index.Logout",
 
     ###########
     "/status",					pre_fix + "status.Index",
@@ -14,5 +15,7 @@ urls = (
 
     ###########
     "/keyword",					pre_fix + "keyword.Index",
+
+    "/db",						pre_fix + "index.DBtest",
 )
 

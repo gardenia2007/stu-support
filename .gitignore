@@ -37,6 +37,7 @@ nosetests.xml
 
 # Other
 web/db
+web/sessions
 
 
 

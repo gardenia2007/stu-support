@@ -3,8 +3,9 @@ import web
 #db = web.database(dbn='mysql', db='www', user='www', pw='www')
 
 render = web.template.render('templates/', cache=False)
+db = web.database(dbn='sqlite', db='./db/testdb')
 
-web.config.debug = True
+web.config.debug = False
 
 config = web.storage(
 	email='aa.com',
@@ -16,5 +17,5 @@ config = web.storage(
 
 web.template.Template.globals['config'] = config
 web.template.Template.globals['render'] = render
-
+# web.template.Template.globals['cxt'] = web.ext
 
