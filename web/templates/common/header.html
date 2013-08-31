@@ -60,10 +60,10 @@ $def with (session)
     <ul class="nav navbar-nav">
       <li class=""><a href="/status">查看学生心情指数</a></li>
       <li class=""><a href="/keyword">查看关键词关注度</a></li>
-$if session.is_admin: <li class=""><a href="/admin">Admin</a></li>
+$if session.is_admin: <li class=""><a href="/admin">系统管理</a></li>
 
     </ul>
-    <p class="navbar-text pull-right">$session.name 老师您好！您所负责的年级是：<strong>计算机学院$session.admin</strong>  <a href="/logout" class="navbar-link">退出</a></p>
+    <p class="navbar-text pull-right">$session.name 老师您好！您所负责的年级是：<strong>计算机学院$session.grade</strong>  <a href="/logout" class="navbar-link">退出</a></p>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"></a></li>
     </ul>

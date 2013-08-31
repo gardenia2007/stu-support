@@ -1,0 +1,159 @@
+$def with (session, data)
+  
+$:render.common.header(session)
+
+      <div class="container">
+        <div class="page-header" style="">
+          <h1>系统管理</h1>
+        </div>
+        <div class="row">
+          <ul class="nav nav-tabs " id="myTab">
+            <li class="active"><a href="#change" data-toggle="tab">切换年级</a></li>
+            <li class=""><a href="#upload" data-toggle="tab">上传数据</a></li>
+            <li><a href="#add" data-toggle="tab">添加用户</a></li>
+            <li><a href="#del" data-toggle="tab">删除用户</a></li>
+            <li><a href="#info" data-toggle="tab">学生统计</a></li>
+            <!-- <li><a href="#settings" data-toggle="tab">Settings</a></li> -->
+          </ul>
+
+          <div class="tab-content">
+            <!-- 切换年级 -->
+            <div class="tab-pane active" id="change">
+              <table class="table table-hover table-striped" style="margin-top:20px">
+                <tr>
+                  <th>年级</th>
+                  <th>操作</th>
+                </tr>
+              $for g in data['grades']:
+                <tr>
+                  <td>$g.g_name</td>
+                  <td><a href="/admin/change/$g.g_id/$g.g_name" class="btn btn-default">选择</a></td>
+                </tr>
+              </table>
+            </div>
+            <!-- 上传数据 -->
+            <div class="tab-pane" id="upload">
+              <form class="form-horizontal" role="form" style="width:400px;margin-top:40px" method="post" action="/admin/upload" enctype="multipart/form-data">
+                <div class="">
+                  注意：上传新数据会清除系统原有的学生数据！
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-5 control-label">年级</label>
+                  <div class="col-lg-7">
+                    <select class="form-control" name="grade">
+                    $for g in data['grades']:
+                      <option value="$g.g_id">$g.g_name</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="col-lg-5 control-label">数据文件</label>
+                  <div class="col-lg-7">
+                    <input class="form-control" type="file" name="file">数据文件格式为CSV，第一列姓名，第二列班号，第三列人人帐号id
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="col-lg-5 control-label"></label>
+                  <div class="col-lg-7">
+                    <button type="submit" class="btn btn-default">提交</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- 添加用户 -->
+            <div class="tab-pane" id="add">
+              <form class="form-horizontal" role="form" style="width:400px;margin-top:40px" method="post" action="/admin/adduser" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label class="col-lg-5 control-label">姓名/用户名</label>
+                  <div class="col-lg-7">
+                    <input class="form-control" type="text" name="name">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-5 control-label">登录密码</label>
+                  <div class="col-lg-7">
+                    <input class="form-control" class="input" type="text" name="password">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-5 control-label">管理年级</label>
+                  <div class="col-lg-7">
+                    <select class="form-control" name="grade">
+                    $for g in data['grades']:
+                      <option value="$g.g_id">$g.g_name</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-lg-5 control-label">角色</label>
+                  <div class="col-lg-7">
+                    <label class="radio-inline">
+                      <input type="radio" name="role" value="user" checked>普通用户
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="role" value="admin">管理用户
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword" class="col-lg-5 control-label"></label>
+                  <div class="col-lg-7">
+                    <button type="submit" class="btn btn-default">提交</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- 删除用户 -->
+            <div class="tab-pane" id="del">
+              <table class="table table-hover table-striped" style="margin-top:20px">
+                <tr>
+                  <th>#</th>
+                  <th>姓名</th>
+                  <th>年级</th>
+                  <th>角色</th>
+                  <th>操作</th>
+                </tr>
+              $for u in data['users']:
+                <tr>
+                  <td>$loop.index</td>
+                  <td>$u.u_name</td>
+                  <td>$u.g_name</td>
+                  <td>$u.u_role</td>
+                  <td><a href="/admin/deluser/$u.u_id" class="btn btn-danger" onclick="return confirm('确认删除 $u.u_name 的帐号吗？\n该操作无法取消。');">删除</a></td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- 学生统计 -->
+            <div class="tab-pane" id="info">
+              <table class="table table-hover table-striped" style="margin-top:20px">
+                <tr>
+                  <th>年级</th>
+                  <th>人数</th>
+                  <th>人人状态数</th>
+                </tr>
+                </tr>
+              $for u in data['info']:
+                <tr>
+                  <td>$u.g_name</td>
+                  <td>$u.count</td>
+                  <td>-</td>
+                </tr>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+
+        <hr>
+
+        <script type="text/javascript">
+   
+
+        </script>
+  
+$:render.common.foot()

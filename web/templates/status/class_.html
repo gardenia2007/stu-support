@@ -1,4 +1,4 @@
-$def with (session, d, i)
+$def with (session, plot_data, i)
   
 $:render.common.header(session)
 
@@ -16,10 +16,7 @@ $:render.common.header(session)
           <div class="col-md-3">
             <div class="pull-left" style="margin:8px">类别</div>
             <div class="pull-left btn-group">
-              <button type="button" class="btn btn-default ">
-$if d['url'] == 'class': 按班级分布
-$else: 按数值大小
-              </button>
+              <button type="button" class="btn btn-default ">按班级分布</button>
               <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
               </button>
@@ -108,10 +105,12 @@ $else: 按数值大小
               }
           );
 
-  var s1 = [2, 6, 7, 10];
-  var s2 = [7, 5, 3, 4];
-  var s3 = [14, 9, 3, 8];
-  plot3 = $$.jqplot('plot', [s1, s2, s3], {
+  var data = [[2, 8, 9, 6, 6, 7, 10],
+              [7, 8, 9, 6, 5, 3, 4],
+              [4, 8, 9, 6, 12, 9, 1],
+              [7, 8, 9, 6, 12, 10, 5],
+              [1, 8, 9, 6, 9, 3, 8]];
+  plot3 = $$.jqplot('plot', data, {
     // Tell the plot to stack the bars.
     stackSeries: true,
     captureRightClick: true,

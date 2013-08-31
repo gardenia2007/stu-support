@@ -1,6 +1,8 @@
 import web
 import re
 import base64
+import urllib
+from config import setting
 from config import setting
 
 render = setting.render
@@ -29,13 +31,16 @@ class Login:
 		return render.login()
 	def POST(self):
 		i = web.input()
-		results = list(db.select('user', where=web.db.sqlwhere({'name':i.username, 'password':i.password})))
+		# results = list(db.select('user', where=web.db.sqlwhere({'name':i.username, 'password':i.password})))
+		sql = "select * from user, grade where u_name=$n and u_pass=$p and u_grade = g_id"
+		results = list(db.query(sql, vars={'n':i.username, 'p':i.password}))
 		web.ctx.session.count += 1
 		if len(results) == 1:
 			web.ctx.session.is_login = True
-			web.ctx.session.name = results[0].name
-			web.ctx.session.admin = results[0].admin
-			if results[0].role == 'admin':
+			web.ctx.session.name = results[0].u_name
+			web.ctx.session.grade = results[0].g_name
+			web.ctx.session.grade_id = results[0].g_id
+			if results[0].u_role == 'admin':
 				web.ctx.session.is_admin = True
 			web.seeother('/')
 		else:
@@ -49,4 +54,11 @@ class DBtest:
         	pass
     def POST(self):
         pass
+
+class Test:
+	def GET(self):
+		pass
+
+	def POST():
+		pass
 

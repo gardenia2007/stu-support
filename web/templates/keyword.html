@@ -1,29 +1,17 @@
-$def with (session)
+$def with (session, plot_data, i)
   
 $:render.common.header(session)
 
       <div class="container">
         <div class="page-header" style="">
-          <h1>关键词关注度 <small>10级</small></h1>
+          <h1>关键词关注度
+            <small style="margin-left:20px">$session.grade</small>
+            <small class="pull-right" id="time-range"></small>
+          </h1>
         </div>
 
         <!-- 选择条件 -->
         <div class="row well">
-          <!-- Split button -->
-          <div class="col-md-3">
-            <div class="pull-left" style="margin:8px">类别</div>
-            <div class="pull-left btn-group">
-              <button type="button" class="btn btn-default ">按数值大小</button>
-              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">按班级分布</a></li>
-                <li><a href="#">按数值大小</a></li>
-              </ul>
-            </div>
-          </div>
-
           <div class="col-md-5">
             <div class="pull-left" style="margin:8px">时间范围</div>
             <div class="pull-left" id="reportrange">
@@ -45,33 +33,27 @@ $:render.common.header(session)
             </div>
           </div>
 
-$def tr(values):
-  <tr>
-  $for v in values:
-    <td>$v</td>
-  </tr>
-$ data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某', 68] ]
-
           <!-- 右侧 -->
           <div class="col-md-4">
             <h4>学生列表</h4>
-            <table class="table">
-              <tr>
-                <th>姓名</th>
-                <th>指数</th>
-              </tr>
-              $for d in data: $:tr(d)
-            </table>
-
+            <iframe id="list" frameborder="no" style="height:450px"></iframe>
           </div>
         </div>
 
-
         <hr>
 
+        <script type="text/javascript" src="$config.static/js/plugins/jqplot.barRenderer.min.js"></script>
+        <script type="text/javascript" src="$config.static/js/plugins/jqplot.categoryAxisRenderer.min.js"></script>
+        <script type="text/javascript" src="$config.static/js/plugins/jqplot.pointLabels.min.js"></script>
         <script type="text/javascript">
 
         $$(function () {
+
+          if($i.start != 0){
+            $$('#time-range').html(moment.unix($i.start).format('YYYY-MM-DD HH:ss')
+                + ' ~ ' + moment.unix($i.end - 1).format('YYYY-MM-DD HH:ss'));
+          }
+
           today = moment();
           $$('#reportrange').daterangepicker(
               {
@@ -98,69 +80,64 @@ $ data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某',
                 }
               },
               function(start, end) {
-                  $$('#reportrange span').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
-                  url = '&start='+start.format('X') + '&end=' + end.add('days', 1).format('X');
-                  console.log(url);
+                  // $$('#reportrange span').html(start.format('YYYY-MM-DD') + ' ~ ' + end.format('YYYY-MM-DD'));
+                  query = 'start='+start.format('X') + '&end=' + end.add('days', 1).format('X');
+                  // 去掉url中的查询部分，只保留路径
+                  path = location.protocol + '//' + location.host + location.pathname;
+                  console.log(path);
+                  // jump
+                  location.href = path + '?' + query;
               }
           );
 
-        $$('#plot').highcharts({
+  plot3 = $$.jqplot('plot', [$plot_data], {
+    // Tell the plot to stack the bars.
+    stackSeries: true,
+    captureRightClick: true,
+    seriesDefaults:{
+      renderer:$$.jqplot.BarRenderer,
+      rendererOptions: {
+          // Put a 30 pixel margin between bars.
+          barMargin: 30,
+          // Highlight bars when mouse button pressed.
+          // Disables default highlighting on mouse over.
+          highlightMouseDown: true    
+      },
+      pointLabels: {show: true}
+    },
+    axes: {
+      xaxis: {
+          renderer: $$.jqplot.CategoryAxisRenderer
+      },
+      yaxis: {
+        // Don't pad out the bottom of the data range.  By default,
+        // axes scaled as if data extended 10% above and below the
+        // actual range to prevent data points right on grid boundaries.
+        // Don't want to do that here.
+        padMin: 0
+      }
+    },
+    legend: {
+      show: true,
+      location: 'top',
+      placement: 'inside'
+    }      
+  });
+  // Bind a listener to the "jqplotDataClick" event.  Here, simply change
+  // the text of the info3 element to show what series and ponit were
+  // clicked along with the data for that point.
+  $$('#plot').bind('jqplotDataClick', 
+    function (ev, seriesIndex, pointIndex, data) {
+      console.log('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+      console.log(location.origin + location.pathname + '?x='+seriesIndex+'&y='+pointIndex);
+      // 加载对应的学生列表
+      window.frames['list'].location.href = location.origin + location.pathname 
+        + '/list?x='+seriesIndex+'&y='+pointIndex+'&count='+data[1];
+    }
+  );
 
-            colors: [ "#55BF3B", "#aaeeee", "#DDDF0D", "#55BF3B", "#DF5353", "#7798BF", "#aaeeee", "#ff0066", "#eeaaee",
-                      "#DF5353", "#7798BF",],
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['薄', '微博', '谣言', '大V', '钓鱼岛']
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: ''
-                },
-                stackLabels: {
-                    enabled: true,
-                    style: {
-                        fontWeight: 'bold',
-                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                    }
-                }
-            },
-            legend: {
-                align: 'right',
-                x: -10,
-                verticalAlign: 'top',
-                y: 5,
-                floating: true,
-                backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColorSolid) || 'white',
-                borderColor: '#CCC',
-                borderWidth: 1,
-                shadow: false
-            },
-            tooltip: {
-                formatter: function() {
-                    return '<b>'+ this.x +'</b><br/>'+
-                        this.series.name +': '+ this.y +'<br/>';
-                }
-            },
-            plotOptions: {
-                column: {
-                    stacking: 'normal',
-                    dataLabels: {
-                        enabled: true,
-                        color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                    }
-                }
-            },
-            series: [{
-                name: '人数',
-                data: [5, 3, 4, 7, 2]
-            }]
-        });
+
+
     });
     
 

@@ -6,6 +6,8 @@ urls = (
     "/index", 					pre_fix + "index.Index",
     "/login", 					pre_fix + "index.Login",
     "/logout", 					pre_fix + "index.Logout",
+    "/test",                    pre_fix + "index.Test",
+
 
     ###########
     "/status",					pre_fix + "status.Index",
@@ -14,8 +16,13 @@ urls = (
     "/status/class",			pre_fix + "status.Class",
 
     ###########
-    "/keyword",					pre_fix + "keyword.Index",
+    "/keyword",                 pre_fix + "keyword.Index",
+    "/keyword/list",            pre_fix + "keyword.List",
 
-    "/db",						pre_fix + "index.DBtest",
+    "/admin",					pre_fix + "admin.Index",
+    "/admin/change/(\d+)/(.+)", pre_fix + "admin.Change",
+    "/admin/upload",            pre_fix + "admin.Upload",
+    "/admin/adduser",           pre_fix + "admin.AddUser",
+    "/admin/deluser/(\d+)",     pre_fix + "admin.DelUser",
 )
 
