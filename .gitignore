@@ -39,5 +39,6 @@ nosetests.xml
 web/db
 web/sessions
 
+.*.swp
 
 

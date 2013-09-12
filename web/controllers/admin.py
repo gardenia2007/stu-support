@@ -3,6 +3,7 @@
 import web
 import random
 import csv
+import codecs
 from auth import Admin
 from config import setting
 
@@ -45,9 +46,14 @@ class Upload(Admin):
 		db.query('delete from stu where s_grade = $g', vars={'g':grade})
 		# uploaded csv file
 		f = csv.reader(web.input(file={}).file.file)
-		for s_name, s_class, s_renren in f:
-			web.debug(db.query('insert into stu values (NULL, $n, $g, $c, $r)', \
-				vars={'n':s_name.decode('utf-8'), 'g':grade, 'c':s_class, 'r':s_renren}))
+		for s_class, s_no, s_name, s_renren in f:
+			if s_class[:3] == codecs.BOM_UTF8:
+				s_class = s_class[3:]
+			if s_class == '' or s_renren == '':
+				continue
+			web.debug(db.query('insert into stu values ($no, NULL, $n, $g, $c, $r)', \
+				vars={'no':buffer(s_no.decode('utf-8')), 'n':buffer(s_name.decode('utf-8')), 'g':int(grade),\
+					'c':int(s_class), 'r':int(s_renren.decode('utf-8'))}))
 		raise web.seeother('/admin')
 
 
