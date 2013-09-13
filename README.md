@@ -4,6 +4,6 @@ stu-support
  * EmotionClassify/src/edu/hit/irlab/nlp/irlas/IRLAS.java
  * EmotionClassify/src/edu/hit/irlab/nlp/irlas/IRLAS_Interface.java
  * EmotionClassify/src/edu/hit/irlab/nlp/tools/FMMProcessor.java
- * EmotionClassify/src/util/Config.java
  * EmotionClassify/src/util/Resource.java
+ * EmotionClassify/src/util/Config.java
  * java.py
