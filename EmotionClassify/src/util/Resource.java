@@ -91,6 +91,6 @@ public class Resource {
 		allEmoticons.addAll(surpriseEmoticons);
 		allEmoticons.addAll(fearEmoticons);
 				
-		System.err.println("emotion resource load ok!");
+//		System.err.println("emotion resource load ok!");
 	}
 }

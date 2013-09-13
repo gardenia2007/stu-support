@@ -4,7 +4,7 @@ public class Config {
 	
 	private static String encoding = "utf8";
 	private static String dataDir = "data/";
-	private static String resourceDir = "resource/";
+	private static String resourceDir = "e:/stu-support/EmotionClassify/resource/";
 	
 	public static final String url = "http://[a-zA-Z/\\.0-9]*";
 	public static final String halfurl = "www\\.[a-zA-Z0-9.]+";

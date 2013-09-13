@@ -4,6 +4,9 @@
 import json
 import urllib2
 import sqlite3
+from java import EmotionClassify
+
+emo = EmotionClassify()
 
 conn = sqlite3.connect("web/db/testdb")
 conn.isolation_level = None
@@ -39,7 +42,8 @@ for stu in db_res:
 	for s in res:
 		if(s['sharedStatusId'] != 0):
 			continue
-		emotion = parse_status(s['content'])
+		emotion = emo.get_emo(s['content'].encode('utf-8'))
+		print emotion
 		insert_db(stu_id=stu[1], renren_id=stu[5], status_id=s['id'], status=s['content'],\
 				emotion=emotion, create_time=s['createTime']) 
 		conn.commit()

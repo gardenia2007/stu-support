@@ -12,7 +12,7 @@ public class IRLAS_Interface
 	 */
 	static 
 	{
-		System.loadLibrary("resource/nlp_data/irlas");
+		System.load("e:/stu-support/EmotionClassify/resource/nlp_data/irlas");
 	}
 	
 	/**

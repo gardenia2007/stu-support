@@ -38,17 +38,18 @@ public class EmotionClassify {
 			
 			HashSet<String> emotionWordSet = new HashSet<String>();
 			emo = Rule.getEmotionFromSeg(word, emotionWordSet);
-			System.out.println("text: " + text);
-			System.out.println("emoword: " + emotionWordSet + "\n");
+//			System.out.println("text: " + text);
+//			System.out.println("emoword: " + emotionWordSet + "\n");
 			return emo;
 		}
 	}
+
 	
 	public static void main(String[] args) {
-		String text = "神马，引体向上要做5个才及格？你让老衲引体蹦上做5个都没那体力。。。[愤怒]";
+		String text = "你让老衲引体蹦上做5个都没那体力。。。[愤怒]";
 		EmotionClassify ec = new EmotionClassify();
 		String emo = ec.getEmo(text);
-		System.out.println(emo);
+		System.out.print(emo);
 	}
 
 }

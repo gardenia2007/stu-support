@@ -29,7 +29,7 @@ public class FMMProcessor
 	/** 一个词的最多字符数 */
 	private static int kLetterMaxLength = 16;
 
-	private String resPathName = "./resource/nlp_data/extendDict/";
+	private String resPathName = "e:/stu-support/EmotionClassify/resource/nlp_data/extendDict/";
 
 	public FMMProcessor()
 	{

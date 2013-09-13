@@ -29,7 +29,7 @@ public class IRLAS implements WordSegPos
 	private boolean hasload = false;//加载资源判断
 
 	private String configFileName = "config.ini";//配置文件名
-	private String resPathName = "resource/nlp_data/irlas";//资源路径名
+	private String resPathName = "e:/stu-support/EmotionClassify/resource/nlp_data/irlas";//资源路径名
 
 	private static FMMProcessor dict = null;//采用 "正向最大匹配" 识别 "扩展词表" 中词的边界
 
