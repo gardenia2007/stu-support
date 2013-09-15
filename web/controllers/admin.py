@@ -30,7 +30,13 @@ class Change(Admin):
 		Admin.__init__(self)
 	def GET(self, g_id, g_name):
 		web.ctx.session.grade = g_name
-		web.ctx.session.grade_id = g_id
+
+		if g_id == '0':
+			g_id_str = '('
+			for g in (db.select('grade', what='g_id')): g_id_str += (str(g.g_id)+',')
+			web.ctx.session.grade_id = g_id_str + '0)'
+		else:
+			web.ctx.session.grade_id = '('+str(g_id)+')'
 		web.seeother('/admin')
 	def POST(self):
 		pass

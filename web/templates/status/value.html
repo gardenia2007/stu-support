@@ -46,7 +46,7 @@ $:render.common.header(session)
           <!-- 图表 -->
           <div class="col-md-8">
             <div class="well">
-              <div id="plot" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              <div id="plot" style="min-width: 310px; height: 600px; margin: 0 auto"></div>
             </div>
           </div>
 
@@ -107,51 +107,52 @@ $:render.common.header(session)
               }
           );
 
-  plot3 = $$.jqplot('plot', [$plot_data], {
-    // Tell the plot to stack the bars.
-    stackSeries: true,
-    captureRightClick: true,
-    seriesDefaults:{
-      renderer:$$.jqplot.BarRenderer,
-      rendererOptions: {
-          // Put a 30 pixel margin between bars.
-          barMargin: 30,
-          // Highlight bars when mouse button pressed.
-          // Disables default highlighting on mouse over.
-          highlightMouseDown: true    
-      },
-      pointLabels: {show: true}
-    },
-    axes: {
-      xaxis: {
-          renderer: $$.jqplot.CategoryAxisRenderer
-      },
-      yaxis: {
-        // Don't pad out the bottom of the data range.  By default,
-        // axes scaled as if data extended 10% above and below the
-        // actual range to prevent data points right on grid boundaries.
-        // Don't want to do that here.
-        padMin: 0
-      }
-    },
-    legend: {
-      show: true,
-      location: 'top',
-      placement: 'inside'
-    }      
-  });
-  // Bind a listener to the "jqplotDataClick" event.  Here, simply change
-  // the text of the info3 element to show what series and ponit were
-  // clicked along with the data for that point.
-  $$('#plot').bind('jqplotDataClick', 
-    function (ev, seriesIndex, pointIndex, data) {
-      console.log('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
-      console.log(location.origin + location.pathname + '?x='+seriesIndex+'&y='+pointIndex);
-      // 加载对应的学生列表
-      window.frames['list'].location.href = location.origin + location.pathname 
-        + '/list?x='+seriesIndex+'&y='+pointIndex+'&count='+data[1];
-    }
-  );
+          plot3 = $$.jqplot('plot', [$plot_data['data']], {
+            // Tell the plot to stack the bars.
+            stackSeries: true,
+            captureRightClick: true,
+            seriesDefaults:{
+              renderer:$$.jqplot.BarRenderer,
+              rendererOptions: {
+                  // Put a 30 pixel margin between bars.
+                  barMargin: 30,
+                  // Highlight bars when mouse button pressed.
+                  // Disables default highlighting on mouse over.
+                  highlightMouseDown: true    
+              },
+              pointLabels: {show: true}
+            },
+            axes: {
+              xaxis: {
+                  ticks: $:plot_data['emotion'] ,
+                  renderer: $$.jqplot.CategoryAxisRenderer
+              },
+              yaxis: {
+                // Don't pad out the bottom of the data range.  By default,
+                // axes scaled as if data extended 10% above and below the
+                // actual range to prevent data points right on grid boundaries.
+                // Don't want to do that here.
+                padMin: 0
+              }
+            },
+            legend: {
+              show: true,
+              location: 'top',
+              placement: 'inside'
+            }      
+          });
+          // Bind a listener to the "jqplotDataClick" event.  Here, simply change
+          // the text of the info3 element to show what series and ponit were
+          // clicked along with the data for that point.
+          $$('#plot').bind('jqplotDataClick', 
+            function (ev, seriesIndex, pointIndex, data) {
+              console.log('series: '+seriesIndex+', point: '+pointIndex+', data: '+data);
+              console.log(location.origin + location.pathname + '?x='+seriesIndex+'&y='+pointIndex);
+              // 加载对应的学生列表
+              window.frames['list'].location.href = location.origin + location.pathname 
+                + '/list?x='+seriesIndex+'&y='+pointIndex+'&count='+data[1];
+            }
+          );
 
 
 

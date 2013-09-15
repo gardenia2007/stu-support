@@ -39,7 +39,7 @@ class Login:
 			web.ctx.session.is_login = True
 			web.ctx.session.name = results[0].u_name
 			web.ctx.session.grade = results[0].g_name
-			web.ctx.session.grade_id = results[0].g_id
+			web.ctx.session.grade_id = '('+str(results[0].g_id)+')'
 			if results[0].u_role == 'admin':
 				web.ctx.session.is_admin = True
 			web.seeother('/')

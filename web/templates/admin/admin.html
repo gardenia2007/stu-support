@@ -24,6 +24,10 @@ $:render.common.header(session)
                   <th>年级</th>
                   <th>操作</th>
                 </tr>
+                <tr>
+                  <td>全部年级</td>
+                  <td><a href="/admin/change/0/全部年级" class="btn btn-default">选择</a></td>
+                </tr>
               $for g in data['grades']:
                 <tr>
                   <td>$g.g_name</td>

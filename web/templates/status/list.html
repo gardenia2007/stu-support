@@ -26,8 +26,6 @@ $def with (data)
 
 <body>
 
-$#data = [['李某某', 150], ['张某某', 129], ['刘某', 104], ['孙某某', 68] ]
-
 <table class="table table-striped table-hover table-condensed">
 	<thead><tr>
 		<th>姓名</th>
@@ -40,7 +38,7 @@ $for d in data:
 		<td>$d[0]</td>
 		<td>$d[1]</td>
 		<!-- <td><a href="$d[2]">进入</a></td> -->
-		<td><a href="http://127.0.0.1:8080" target="_blank">进入</a></td>
+		<td><a href="http://www.renren.com/$d[2]" target="_blank">进入</a></td>
 	</tr>
 </tbody>
 </table>
