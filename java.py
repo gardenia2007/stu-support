@@ -15,7 +15,7 @@ class EmotionClassify:
         self.Emo = javaClass()
     def get_emo(self, content):
         try:
-            print content
+            print content.decode('utf-8').encode('GB18030')
             return self.Emo.getEmo(content.decode('utf-8'))
         except jpype.JavaException as exception:
             print exception.message()

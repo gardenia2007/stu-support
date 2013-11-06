@@ -7,6 +7,8 @@ urls = (
     "/login", 					pre_fix + "index.Login",
     "/logout", 					pre_fix + "index.Logout",
     "/test",                    pre_fix + "index.Test",
+    "/t",                    pre_fix + "keyword.Tmp",
+
 
 
     ###########
@@ -18,6 +20,8 @@ urls = (
     ###########
     "/keyword",                 pre_fix + "keyword.Index",
     "/keyword/list",            pre_fix + "keyword.List",
+    "/keyword/update",          pre_fix + "keyword.Update",
+
 
     "/admin",					pre_fix + "admin.Index",
     "/admin/change/(\d+)/(.+)", pre_fix + "admin.Change",

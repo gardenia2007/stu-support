@@ -75,15 +75,16 @@ $:render.common.header(session)
           $$('#reportrange').daterangepicker(
               {
                 ranges: {
-                   '今日': [moment(), moment()],
+                   //'今日': [moment(), moment()],
                    '昨日': [moment().subtract('days', 1), moment().subtract('days', 1)],
                    '最近3天': [moment().subtract('days', 2), moment()],
                    '最近一周': [moment().subtract('days', 6), moment()],
+                   '最近15天': [moment().subtract('days', 14), moment()],
                    '最近一月': [moment().subtract('days', 29), moment()],
                    '最近半年': [moment().subtract('days', 182), today],
                    // '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
                 },
-                startDate: moment().subtract('days', 29),
+                startDate: moment().subtract('days', 30),
                 endDate: today,
                 locale: {
                   applyLabel: '确认',
@@ -137,9 +138,12 @@ $:render.common.header(session)
             },
             legend: {
               show: true,
-              location: 'top',
-              placement: 'inside'
-            }      
+              location: 'ne',
+              placement: 'outside'
+            },
+            series:[
+              {label:'状态数'}
+            ]
           });
           // Bind a listener to the "jqplotDataClick" event.  Here, simply change
           // the text of the info3 element to show what series and ponit were

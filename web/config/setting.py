@@ -2,8 +2,8 @@ import web
 # -*- coding: utf-8 -*- 
 #db = web.database(dbn='mysql', db='www', user='www', pw='www')
 
-render = web.template.render('templates/', cache=False)
-db = web.database(dbn='sqlite', db='./db/testdb')
+render = web.template.render('e:/stu-support/web/templates/', cache=False)
+db = web.database(dbn='sqlite', db='e:/stu-support/web/db/testdb')
 
 web.config.debug = True
 

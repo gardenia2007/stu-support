@@ -1,4 +1,4 @@
-$def with (session, plot_data, i)
+﻿$def with (session, plot_data, i, keyword)
   
 $:render.common.header(session)
 
@@ -20,6 +20,11 @@ $:render.common.header(session)
             </div>
           </div>
           <div class="col-md-4">
+            <div class="pull-left" style="margin:8px">关键词</div>
+            <form action="/keyword/update">
+              <input type="text" value="$keyword" name="keyword" class="input">
+              <input type="submit" class='btn btn-primary' value="提交修改" id="">
+            </form>
           </div>
         </div>
 
@@ -66,7 +71,7 @@ $:render.common.header(session)
                    '最近半年': [moment().subtract('days', 182), today],
                    // '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
                 },
-                startDate: moment().subtract('days', 29),
+                startDate: moment().subtract('days', 30),
                 endDate: today,
                 locale: {
                   applyLabel: '确认',
@@ -90,7 +95,7 @@ $:render.common.header(session)
               }
           );
 
-  plot3 = $$.jqplot('plot', [$plot_data], {
+  plot3 = $$.jqplot('plot', [$plot_data['data']], {
     // Tell the plot to stack the bars.
     stackSeries: true,
     captureRightClick: true,
@@ -107,6 +112,8 @@ $:render.common.header(session)
     },
     axes: {
       xaxis: {
+          // ticks: $:plot_data['word'] ,
+          ticks: $:keyword.encode('utf-8').split(',') ,
           renderer: $$.jqplot.CategoryAxisRenderer
       },
       yaxis: {
@@ -119,8 +126,8 @@ $:render.common.header(session)
     },
     legend: {
       show: true,
-      location: 'top',
-      placement: 'inside'
+      location: 'ne',
+      placement: 'outside'
     }      
   });
   // Bind a listener to the "jqplotDataClick" event.  Here, simply change

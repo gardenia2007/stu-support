@@ -70,7 +70,7 @@ class AddUser(Admin):
 		pass
 	def POST(self):
 		i = web.input()
-		db.insert('user', u_name=i.name, u_pass=i.password, u_grade=i.grade, u_role=i.role)
+		db.insert('user', u_name=i.name, u_pass=i.password, u_grade=i.grade, u_role=i.role, u_keyword='')
 		web.seeother('/admin')
 
 class DelUser(Admin):

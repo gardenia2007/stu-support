@@ -81,7 +81,7 @@ $:render.common.header(session)
                    '最近半年': [moment().subtract('days', 182), today],
                    // '上个月': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
                 },
-                startDate: moment().subtract('days', 29),
+                startDate: moment().subtract('days', 30),
                 endDate: today,
                 locale: {
                   applyLabel: '确认',
@@ -118,6 +118,13 @@ $:render.common.header(session)
           highlightMouseDown: true    
       },
       pointLabels: {show: true}
+    },
+    axesDefaults: {
+        tickRenderer: $$.jqplot.CanvasAxisTickRenderer ,
+        tickOptions: {
+          angle: -30,
+          fontSize: '10pt'
+        }
     },
     axes: {
       xaxis: {
