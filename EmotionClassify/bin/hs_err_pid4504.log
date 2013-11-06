@@ -1,0 +1,165 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x72421c4c, pid=4504, tid=7048
+#
+# JRE version: 7.0-b147
+# Java VM: Java HotSpot(TM) Client VM (21.0-b17 mixed mode, sharing windows-x86 )
+# Problematic frame:
+# C  [_irlas.dll+0x1c4c]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0027a400):  JavaThread "main" [_thread_in_native, id=7048, stack(0x00280000,0x002d0000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x000349cc
+
+Registers:
+EAX=0x0000d272, EBX=0x03f371ac, ECX=0x00000000, EDX=0x002cf624
+ESP=0x002cf5b0, EBP=0x00000000, ESI=0x0001a4e4, EDI=0x002cf620
+EIP=0x72421c4c, EFLAGS=0x00010287
+
+Top of Stack: (sp=0x002cf5b0)
+0x002cf5b0:   002cf740 00000012 002cf744 03f371ac
+0x002cf5c0:   6e705907 724383d8 002cf744 72434d56
+0x002cf5d0:   00000000 002cf620 5d7c3462 03f371ac
+0x002cf5e0:   03f37148 00000000 00000004 0300f600
+0x002cf5f0:   00000002 00000000 00000010 00000000
+0x002cf600:   0000000f 6e6a3a58 03f30000 00000000
+0x002cf610:   00000004 03f37148 00000000 0000000f
+0x002cf620:   002cf638 6e6a0035 00000004 00000000 
+
+Instructions: (pc=0x72421c4c)
+0x72421c2c:   ed be e4 a4 01 00 8d 04 2e 99 2b c2 d1 f8 83 7f
+0x72421c3c:   18 10 72 05 8b 57 04 eb 03 8d 57 04 8b 4c 24 20
+0x72421c4c:   8b 4c 81 04 8a 19 3a 1a 75 1a 84 db 74 12 8a 59
+0x72421c5c:   01 3a 5a 01 75 0e 83 c1 02 83 c2 02 84 db 75 e4 
+
+
+Register to memory mapping:
+
+EAX=0x0000d272 is an unknown value
+EBX=0x03f371ac is an unknown value
+ECX=0x00000000 is an unknown value
+EDX=0x002cf624 is pointing into the stack for thread: 0x0027a400
+ESP=0x002cf5b0 is pointing into the stack for thread: 0x0027a400
+EBP=0x00000000 is an unknown value
+ESI=0x0001a4e4 is an unknown value
+EDI=0x002cf620 is pointing into the stack for thread: 0x0027a400
+
+
+Stack: [0x00280000,0x002d0000],  sp=0x002cf5b0,  free space=317k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [_irlas.dll+0x1c4c]
+
+[error occurred during error reporting (printing native stack), id 0xc0000005]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  edu.hit.irlab.nlp.irlas.IRLAS_Interface.wordSegment_dll([B)[B+0
+j  edu.hit.irlab.nlp.irlas.IRLAS.run(Ljava/lang/String;)Ljava/lang/String;+32
+j  edu.hit.irlab.nlp.irlas.IRLAS.wordSegment(Ljava/lang/String;Ljava/util/Vector;Ljava/util/Vector;)V+82
+j  sa.EmotionClassify.getEmo(Ljava/lang/String;)Ljava/lang/String;+46
+j  sa.EmotionClassify.main([Ljava/lang/String;)V+13
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00af4c00 JavaThread "Service Thread" daemon [_thread_blocked, id=7936, stack(0x03c30000,0x03c80000)]
+  0x00af3c00 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=7300, stack(0x03ac0000,0x03b10000)]
+  0x00aef000 JavaThread "Attach Listener" daemon [_thread_blocked, id=7348, stack(0x03be0000,0x03c30000)]
+  0x00aec000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3940, stack(0x03b70000,0x03bc0000)]
+  0x00ad4400 JavaThread "Finalizer" daemon [_thread_blocked, id=7628, stack(0x00da0000,0x00df0000)]
+  0x00acf400 JavaThread "Reference Handler" daemon [_thread_blocked, id=1676, stack(0x00c30000,0x00c80000)]
+=>0x0027a400 JavaThread "main" [_thread_in_native, id=7048, stack(0x00280000,0x002d0000)]
+
+Other Threads:
+  0x00acdc00 VMThread [stack: 0x00d30000,0x00d80000] [id=3308]
+  0x03c88400 WatcherThread [stack: 0x03fa0000,0x03ff0000] [id=4260]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ def new generation   total 4928K, used 862K [0x23b10000, 0x24060000, 0x29060000)
+  eden space 4416K,  19% used [0x23b10000, 0x23be78a8, 0x23f60000)
+  from space 512K,   0% used [0x23f60000, 0x23f60000, 0x23fe0000)
+  to   space 512K,   0% used [0x23fe0000, 0x23fe0000, 0x24060000)
+ tenured generation   total 10944K, used 0K [0x29060000, 0x29b10000, 0x33b10000)
+   the space 10944K,   0% used [0x29060000, 0x29060000, 0x29060200, 0x29b10000)
+ compacting perm gen  total 12288K, used 197K [0x33b10000, 0x34710000, 0x37b10000)
+   the space 12288K,   1% used [0x33b10000, 0x33b41460, 0x33b41600, 0x34710000)
+    ro space 10240K,  42% used [0x37b10000, 0x37f4c660, 0x37f4c800, 0x38510000)
+    rw space 12288K,  53% used [0x38510000, 0x38b88180, 0x38b88200, 0x39110000)
+
+Code Cache  [0x01a60000, 0x01ad8000, 0x03a60000)
+ total_blobs=144 nmethods=13 adapters=65 free_code_cache=32314Kb largest_free_block=33090368
+
+Dynamic libraries:
+0x00e30000 - 0x00e5e000 	C:\Windows\system32\java.exe
+0x76fc0000 - 0x770fc000 	C:\Windows\SYSTEM32\ntdll.dll
+0x758f0000 - 0x759c4000 	C:\Windows\system32\kernel32.dll
+0x75130000 - 0x7517a000 	C:\Windows\system32\KERNELBASE.dll
+0x75200000 - 0x752a0000 	C:\Windows\system32\ADVAPI32.dll
+0x76e00000 - 0x76eac000 	C:\Windows\system32\msvcrt.dll
+0x77120000 - 0x77139000 	C:\Windows\SYSTEM32\sechost.dll
+0x77140000 - 0x771e1000 	C:\Windows\system32\RPCRT4.dll
+0x755e0000 - 0x756a9000 	C:\Windows\system32\USER32.dll
+0x751b0000 - 0x751fe000 	C:\Windows\system32\GDI32.dll
+0x75af0000 - 0x75afa000 	C:\Windows\system32\LPK.dll
+0x75470000 - 0x7550d000 	C:\Windows\system32\USP10.dll
+0x73ca0000 - 0x73e3e000 	C:\Windows\WinSxS\x86_microsoft.windows.common-controls_6595b64144ccf1df_6.0.7600.16385_none_421189da2b7fabfc\COMCTL32.dll
+0x752a0000 - 0x752f7000 	C:\Windows\system32\SHLWAPI.dll
+0x77100000 - 0x7711f000 	C:\Windows\system32\IMM32.DLL
+0x76980000 - 0x76a4c000 	C:\Windows\system32\MSCTF.dll
+0x6c680000 - 0x6c73e000 	C:\Program Files\Java\jre7\bin\msvcr100.dll
+0x627b0000 - 0x62ad1000 	C:\Program Files\Java\jre7\bin\client\jvm.dll
+0x70540000 - 0x70547000 	C:\Windows\system32\WSOCK32.dll
+0x755a0000 - 0x755d5000 	C:\Windows\system32\WS2_32.dll
+0x75860000 - 0x75866000 	C:\Windows\system32\NSI.dll
+0x74f10000 - 0x74f42000 	C:\Windows\system32\WINMM.dll
+0x75850000 - 0x75855000 	C:\Windows\system32\PSAPI.DLL
+0x72980000 - 0x7298c000 	C:\Program Files\Java\jre7\bin\verify.dll
+0x722e0000 - 0x72300000 	C:\Program Files\Java\jre7\bin\java.dll
+0x72290000 - 0x722a3000 	C:\Program Files\Java\jre7\bin\zip.dll
+0x10000000 - 0x10009000 	E:\stu-support\EmotionClassify\resource\nlp_data\irlas.dll
+0x72420000 - 0x72440000 	C:\Windows\system32\_irlas.dll
+0x6e6f0000 - 0x6e77e000 	C:\Windows\WinSxS\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\MSVCP90.dll
+0x6e640000 - 0x6e6e3000 	C:\Windows\WinSxS\x86_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4926_none_508ed732bcbc0e5a\MSVCR90.dll
+0x6c950000 - 0x6ca3b000 	C:\Windows\system32\dbghelp.dll
+
+VM Arguments:
+jvm_args: -Djava.library.path=e:\stu-support\EmotionClassify 
+java_command: sa/EmotionClassify
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=C:\Program Files\NVIDIA Corporation\PhysX\Common;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files\Common Files\Adobe\AGL;D:\Windows7Master;D:\TortoiseSVN\bin;d:\Xilinx91i\bin\nt;E:\Altium\AD_summer_09\System;E:\Matlab\runtime\win32;E:\Matlab\bin;D:\TortoiseGit\bin;d:\Git\cmd;d:\Git\bin
+USERNAME=A
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=x86 Family 16 Model 5 Stepping 3, AuthenticAMD
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 7 Build 7600 
+
+CPU:total 3 (3 cores per cpu, 1 threads per core) family 16 model 5 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, popcnt, mmxext, 3dnowpref, lzcnt, sse4a
+
+Memory: 4k page, physical 3143984k(951296k free), swap 6286204k(3279644k free)
+
+vm_info: Java HotSpot(TM) Client VM (21.0-b17) for windows-x86 JRE (1.7.0-b147), built on Jun 27 2011 02:25:52 by "java_re" with unknown MS VC++:1600
+
+time: Fri Sep 13 22:41:33 2013
+elapsed time: 0 seconds
+
